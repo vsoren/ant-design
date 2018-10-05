@@ -1,9 +1,5 @@
 import * as React from 'react';
-import Tooltip, {
-  AbstractTooltipProps,
-  TooltipPlacement,
-  TooltipTrigger,
-} from '../tooltip';
+import Tooltip, { AbstractTooltipProps, TooltipPlacement, TooltipTrigger } from '../tooltip';
 import warning from '../_util/warning';
 
 export interface PopoverProps extends AbstractTooltipProps {
@@ -34,7 +30,7 @@ export default class Popover extends React.Component<PopoverProps, {}> {
     warning(
       !('overlay' in this.props),
       'Popover[overlay] is removed, please use Popover[content] instead, ' +
-        'see: https://u.ant.design/popover-content',
+      'see: https://u.ant.design/popover-content',
     );
     return (
       <div>
@@ -43,14 +39,20 @@ export default class Popover extends React.Component<PopoverProps, {}> {
       </div>
     );
   }
+
   saveTooltip = (node: any) => {
     this.tooltip = node;
-  };
+  }
+
   render() {
     const props = { ...this.props };
     delete props.title;
     return (
-      <Tooltip {...props} ref={this.saveTooltip} overlay={this.getOverlay()} />
+      <Tooltip
+        {...props}
+        ref={this.saveTooltip}
+        overlay={this.getOverlay()}
+      />
     );
   }
 }
