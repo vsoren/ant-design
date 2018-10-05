@@ -5,11 +5,7 @@ import Popover from '..';
 describe('Popover', () => {
   it('should show overlay when trigger is clicked', () => {
     const popover = mount(
-      <Popover
-        content="console.log('hello world')"
-        title="code"
-        trigger="click"
-      >
+      <Popover content="console.log('hello world')" title="code" trigger="click">
         <span>show me your code</span>
       </Popover>
     );
@@ -26,9 +22,10 @@ describe('Popover', () => {
   });
 
   it('should have onBlur', () => {
+    const onBlurCallback = jest.fn();
     const popover = mount(
       <Popover
-        onBlur={() => null}
+        onBlur={onBlurCallback}
         content="console.log('hello world')"
         title="code"
         trigger="click"
@@ -40,12 +37,7 @@ describe('Popover', () => {
     expect(popover.instance().getPopupDomNode()).toBe(null);
     popover.find('span').simulate('click');
 
-    const popup = popover.instance().getPopupDomNode();
-    expect(popup).not.toBe(null);
-    expect(popup.className).toContain('ant-popover-placement-top');
-    expect(popup.innerHTML).toMatchSnapshot();
-    expect(popup.innerHTML).toMatchSnapshot();
-
     expect(popover.simulate('blur')).toBeTruthy();
+    expect(onBlurCallback).toHaveBeenCalledTimes(1);
   });
 });
